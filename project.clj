@@ -60,7 +60,13 @@
                  [overtone/libs.handlers "0.2.0"]
                  [overtone/scsynth "3.5.7.0"]
                  [overtone/scsynth-extras "3.5.7.0"]
-                 [clj-glob "1.0.0"]]
+                 [clj-glob "1.0.0"]
+                 [org.clojure/core.match "0.2.1"]
+
+                 ; added
+                 [org.clojure/core.typed "0.2.39"]
+                 [polynome "0.2.2"]
+                 ]
   :profiles {:test {:dependencies [[bultitude "0.2.0"]
                                    [polynome "0.2.2"]]}}
   :test-selectors {:core (fn [m] (not (some m [:gui :hw])))
@@ -68,4 +74,6 @@
                    :hw   :hw}
   :native-path "native"
   :min-lein-version "2.0.0"
+  :repositories {"sonatype-oss-public" "https://oss.sonatype.org/content/groups/public/"}
+  :profiles {:dev {:repl-options {:port 64470}}}
   :jvm-opts ^:replace ~(jvm-opts))
