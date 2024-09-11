@@ -124,8 +124,10 @@
   (at t (overpad (- (first notes) 36) 0.3 (/ dur 1000)))
   (apply-by (+ t dur) #'looper (+ t dur) dur (next notes) []))
 
-;;(looper (now) 500 (cycle [60 67 65 72 75 70]))
-;;(stop)
+#_
+(looper (now) 500 (cycle [60 67 65 72 75 70]))
+#_
+(stop)
 
 ;; When a multiplication is done involving UGen objects, then
 ;; multiply UGens will be produced with the operands as their
@@ -134,8 +136,13 @@
   "Street crossing in Britain."
   [out-bus 0]
   (out out-bus (pan2 (* 0.2 (sin-osc 2500) (lf-pulse 5)))))
-;;(pedestrian-crossing)
-;;(stop)
+#_
+(pedestrian-crossing)
+(pedestrian-crossing)
+#_
+(stop)
+
+;; (inc 1)
 
 ;; You can mix signals by adding them together.  The soundcard can take audio
 ;; data between -1 and 1, so if you add up signals remember to multiply
@@ -173,8 +180,10 @@
         src (pan2 src k2)
         bak (* 0.5 (lpf (white-noise)))]
     (out 0 (+ src [bak bak]))))
-;;(scratch-pendulum)
-;;(stop)
+#_
+(scratch-pendulum)
+#_
+(stop)
 
 
 ;; The functions representing UGens support what's called multi-channel
@@ -184,8 +193,10 @@
 (definst dial-tone [freq-a 350 freq-b 440]
   (apply + (* (sin-osc [freq-a freq-b]) 0.2)))
 
-;;(dial-tone)
-;;(stop)
+#_
+(dial-tone)
+#_
+(stop)
 
 ;; Synths can also communicate back to us.  Here we use the send-trig
 ;; UGen, which sends a "/tr" trigger message every time it gets an
@@ -195,15 +206,17 @@
 (defsynth trigger-finger []
   (send-trig:kr (impulse:kr 0.2) 200 (num-output-buses)))
 
-;;(on-event "/tr" #(println "trigger: " %) ::trigger-test)
-;;(trigger-finger)
-;;(stop)
+#_#_#_
+(on-event "/tr" #(println "trigger: " %) ::trigger-test)
+(trigger-finger)
+(stop)
 
 (defsynth dtest []
   (send-trig:kr (impulse:kr 2) 1 (demand:kr (impulse:kr 0.5) 1 (dwhite))))
 
-;; (dtest)
-;; (stop)
+#_#_
+(dtest)
+(stop)
 
 (defsynth adder [a 1 b 2]
   (let [v1 (- a b)
@@ -213,7 +226,9 @@
     (send-trig:kr v1 201 sum)
     (send-trig:kr v2 202 product)))
 
-;;(adder)
+#_ #_
+(adder)
+(stop)
 
 ;; You can read audio data in from your sound card using the regular (in <bus-num>) ugen,
 ;; but you need to know where your input buses start.  The output buses start at number 0,
@@ -226,31 +241,38 @@
 (definst ticker [freq 2]
   (* (sin-osc 440) (env-gen (perc 0.1 0.2) (sin-osc:kr freq))))
 
-;;(ticker)
+#_
+(ticker)
+#_
+(stop)
 
 (definst sizzle [amp 0.4 depth 10 freq 220 lfo 8]
   (* amp (saw (+ freq (* depth (sin-osc:kr lfo))))))
 
-;;(sizzle)
-;;(ctl sizzle :depth 100 :lfo 0.5)
+#_#_
+(sizzle)
+(ctl sizzle :depth 100 :lfo 0.5)
 
-;;(stop)
+#_
+(stop)
 
 ;; It's typical to use a pulse as a sort of on off switch like this.
 (defsynth line-two [bus 0]
   (let [sig (lf-pulse 1/6 0 0.25)]
     (out 0 (* 0.5 (sin-osc [480 440]) (lag sig)))))
 
-;; (line-two)
-;; (stop)
+#_#_
+(line-two)
+(stop)
 
 (definst busy-signal []
   (let [on-off (lag (lf-pulse 2) 0.1)]
     (* 0.2
        (apply + (* (sin-osc [480 620]) on-off)))))
 
-;;(busy-signal)
-;;(stop)
+#_#_
+(busy-signal)
+(stop)
 
 ;; Need to make a call?
 (def DTMF-TONES {1  [697, 1209]
